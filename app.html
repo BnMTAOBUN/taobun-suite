@@ -1290,6 +1290,7 @@
               <div class="fg" style="margin:0"><label>Harga Jual</label><input type="text" id="pr-hj" readonly placeholder="Rp —"></div>
               <div class="fg" style="margin:0"><label>HPP</label><input type="text" id="pr-hpp" readonly placeholder="Rp —"></div>
             </div>
+            <div class="fg" style="margin-top:11px;display:none" id="pr-poin-wrap"><label>Min. Poin Redeem</label><input type="text" id="pr-poin" readonly placeholder="—" style="color:var(--primary);font-weight:800"></div>
             <div class="fg" style="margin-top:11px"><label>Qty Item (Pcs)</label><input type="number" id="pr-qty" value="1" min="1" oninput="preLive()"></div>
             <div class="fg"><label>Tipe Promo</label>
               <select id="pr-tipe" onchange="prTipe();preLive()">
@@ -1300,7 +1301,7 @@
             </div>
             <div class="fg" id="pr-dw" style="display:none">
               <label id="pr-dl">Nominal Diskon (Rp)</label>
-              <input type="text" id="pr-dis" oninput="preLive()">
+              <input type="text" id="pr-dis" oninput="prDisInput(this);preLive()">
             </div>
             <div class="fg"><label>Min. Transaksi (Rp)</label><input type="text" id="pr-mt" placeholder="Rp 0" oninput="rpFmt(this);preLive()"></div>
             <div id="pr-prev" style="display:none">
@@ -1320,7 +1321,7 @@
             <div id="pr-empty" class="empty"><div class="empty-ico">📋</div><div>Belum ada simulasi promo.</div><div style="font-size:11px;margin-top:3px">Buat dari panel kiri.</div></div>
             <div id="pr-tw" style="display:none">
               <div class="tw"><table>
-                <thead><tr><th>#</th><th>Program</th><th>Produk</th><th class="tc2">Qty</th><th>Tipe</th><th class="tr">HPP Total</th><th class="tr">Revenue</th><th class="tr">Net Margin</th><th class="tr">GM%</th><th>Status</th><th></th></tr></thead>
+                <thead><tr><th>#</th><th>Program</th><th>Produk</th><th class="tc2">Qty</th><th>Tipe</th><th class="tr">Detail Promo</th><th class="tr">HPP Total</th><th class="tr">Revenue</th><th class="tr">Net Margin</th><th class="tr">GM%</th><th>Status</th><th></th></tr></thead>
                 <tbody id="pr-tb"></tbody>
               </table></div>
             </div>
@@ -2225,7 +2226,14 @@ function cbSel(name){
   document.getElementById('pr-val').value=name;
   document.getElementById('cb-dd').classList.remove('open');
   selP=P.find(p=>p.n===name);
-  if(selP){document.getElementById('pr-hj').value=sbRp(selP.hj);document.getElementById('pr-hpp').value=sbRp(selP.hpp);}
+  if(selP){
+    document.getElementById('pr-hj').value=sbRp(selP.hj);
+    document.getElementById('pr-hpp').value=sbRp(selP.hpp);
+    const poinWrap=document.getElementById('pr-poin-wrap');
+    const poinEl=document.getElementById('pr-poin');
+    if(selP.poin!=null){poinEl.value=selP.poin.toLocaleString('id-ID')+' Poin';poinWrap.style.display='';}
+    else{poinWrap.style.display='none';}
+  }
   preLive();
 }
 function cbKey(e){
@@ -2244,7 +2252,18 @@ document.addEventListener('click',e=>{
 let promos = [];
 function prTipe(){
   const t=document.getElementById('pr-tipe').value, dw=document.getElementById('pr-dw'), dl=document.getElementById('pr-dl');
-  if(t==='gratis'){dw.style.display='none';}else{dw.style.display='flex';dl.textContent=t==='drp'?'Nominal Diskon (Rp)':'Diskon (%)';}
+  const disEl=document.getElementById('pr-dis');
+  if(t==='gratis'){dw.style.display='none';}
+  else{
+    dw.style.display='flex';
+    if(t==='drp'){dl.textContent='Nominal Diskon (Rp)';disEl.placeholder='Rp 0';}
+    else{dl.textContent='Diskon (%)';disEl.placeholder='contoh: 10';}
+    disEl.value='';
+  }
+}
+function prDisInput(el){
+  const t=document.getElementById('pr-tipe').value;
+  if(t==='drp') rpFmt(el);
 }
 function calcV(prod,qty,tipe,disRaw,mt){
   if(!prod)return null;
@@ -2286,7 +2305,7 @@ function addPromo(){
   const v=calcV(selP,qty,tipe,dis,mt);
   if(!v)return;
   const tl={gratis:'🎁 Gratis',drp:'💸 Diskon Rp',dpct:'📉 Diskon %'};
-  promos.push({nm,prod:selP.n,qty,tipe:tl[tipe],...v});
+  promos.push({nm,prod:selP.n,qty,tipeRaw:tipe,tipe:tl[tipe],disRaw:dis,poin:selP.poin,...v});
   renderPromo();
   document.getElementById('pr-nm').value='';
   xlToast('✅ Promo "'+nm+'" berhasil ditambahkan.');
@@ -2302,7 +2321,8 @@ function renderPromo(){
       <td style="font-weight:700;white-space:nowrap">${pr.nm}</td>
       <td style="white-space:nowrap">${pr.prod}</td>
       <td class="tc2 mono">${pr.qty}</td>
-      <td style="font-size:12px;white-space:nowrap">${pr.tipe}</td>
+      <td style="font-size:12px;white-space:nowrap">${pr.tipe}${pr.tipeRaw==='drp'&&pr.disRaw?' <span class="mono" style="font-size:11px;color:var(--muted)">(-'+sbRp(sbParseRp(pr.disRaw))+')</span>':pr.tipeRaw==='dpct'&&pr.disRaw?' <span class="mono" style="font-size:11px;color:var(--muted)">(-'+parseFloat(pr.disRaw)+'%)</span>':''}</td>
+      <td class="tr mono" style="font-weight:800;color:${pr.tipeRaw==='gratis'?'var(--primary)':pr.tipeRaw==='drp'?'var(--success)':'#f59e0b'}">${(()=>{if(pr.tipeRaw==='gratis')return pr.poin!=null?pr.poin.toLocaleString('id-ID')+' Poin':'—';if(pr.tipeRaw==='drp')return sbRp(sbParseRp(pr.disRaw));if(pr.tipeRaw==='dpct')return (parseFloat(pr.disRaw)||0)+'%';return '—';})()}</td>
       <td class="tr mono">${sbRp(pr.hpp)}</td>
       <td class="tr mono">${sbRp(pr.rev)}</td>
       <td class="tr mono" style="color:${pr.net>=0?'var(--success)':'#ef4444'}">${sbRp(pr.net)}</td>
