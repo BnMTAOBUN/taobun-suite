@@ -1397,10 +1397,6 @@
           <button class="nav-tab" onclick="sbGoto('reward',this)">Reward</button>
           <button class="nav-tab" onclick="sbGoto('promo',this)">Simulasi Promo</button>
         </div>
-        <button class="btn-import" onclick="xlOpen()" title="Import data dari Excel SKEMA_SOBAT_TAOBUN.xlsx">
-          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          <span class="btn-import-label">Import Excel</span>
-        </button>
         <button class="theme-toggle sobun-view-theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" style="margin-left:4px;flex-shrink:0;">
           <svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
           <svg class="moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
@@ -2459,22 +2455,22 @@ const SB_TIERS = [
   {k:'platinum',lbl:'💎 Platinum Bun',mult:2,css:'tb-pl'},
 ];
 
-// Tier thresholds — bisa dioverride via import Excel
+// Tier thresholds — dari data Excel SKEMA_SOBAT_TAOBUN
 let TIER_TH = {
-  bronze:   { naik: 250000,   stay: 0       },
-  silver:   { naik: 600000,   stay: 300000  },
-  gold:     { naik: 1500000,  stay: 750000  },
-  platinum: { naik: 1800000,  stay: 1800000 },
+  bronze:   { naik: 3000000,   stay: 0        },
+  silver:   { naik: 6000000,   stay: 4000000  },
+  gold:     { naik: 10000000,  stay: 6500000  },
+  platinum: { naik: 12000000,  stay: 12000000 },
 };
 
 let RW = [
-  {t:'bronze',n:'Selamat Datang, Bun! 🎉',item:'ROTI KUKUS SRIKAYA',hj:6500,hpp:2530,gm:.611,poin:125,ef:250000,rs:null,ket:'Quick win ~8x transaksi — akuisisi member baru'},
-  {t:'bronze',n:'Ngopi Perdana Gratis',item:'ROTI KUKUS COKLAT',hj:6500,hpp:2415,gm:.628,poin:120,ef:240000,rs:null,ket:'Quick win ~7x transaksi'},
-  {t:'bronze',n:'First Bite on Us',item:'ROTI KUKUS KEJU',hj:7000,hpp:2530,gm:.639,poin:125,ef:250000,rs:null,ket:'Quick win ~8x transaksi'},
-  {t:'bronze',n:'Bronze Welcome Pack',item:'ROTI GORENG SRIKAYA',hj:6500,hpp:2645,gm:.593,poin:135,ef:270000,rs:null,ket:'Quick win ~8x transaksi'},
-  {t:'bronze',n:'Yuk Mulai, Free Roti!',item:'ROTI GORENG AYAM',hj:7500,hpp:3565,gm:.525,poin:180,ef:360000,rs:null,ket:'Quick win ~11x transaksi'},
-  {t:'bronze',n:'Kenalan Dulu, Gratis Dulu',item:'ROTI KUKUS AYAM',hj:7500,hpp:3565,gm:.525,poin:180,ef:360000,rs:null,ket:'Quick win ~11x transaksi'},
-  {t:'bronze',n:'Promo Member Baru — Roti Goreng',item:'ROTI GORENG COKLAT',hj:6500,hpp:2415,gm:.628,poin:120,ef:240000,rs:null,ket:'Quick win ~7x transaksi'},
+  {t:'bronze',n:'Selamat Datang, Bun! 🎉',item:'ROTI KUKUS SRIKAYA',hj:6500,hpp:2530,gm:.611,poin:125,ef:250000,rs:null,ket:'Quick win ~8x transaksi — cocok buat akuisisi member baru'},
+  {t:'bronze',n:'Ngopi Perdana Gratis',item:'ROTI KUKUS COKLAT',hj:6500,hpp:2415,gm:.628,poin:120,ef:240000,rs:null,ket:'Quick win ~7x transaksi — cocok buat akuisisi member baru'},
+  {t:'bronze',n:'First Bite on Us',item:'ROTI KUKUS KEJU',hj:7000,hpp:2530,gm:.639,poin:125,ef:250000,rs:null,ket:'Quick win ~8x transaksi — cocok buat akuisisi member baru'},
+  {t:'bronze',n:'Bronze Welcome Pack',item:'ROTI GORENG SRIKAYA',hj:6500,hpp:2645,gm:.593,poin:135,ef:270000,rs:null,ket:'Quick win ~8x transaksi — cocok buat akuisisi member baru'},
+  {t:'bronze',n:'Yuk Mulai, Free Roti!',item:'ROTI GORENG AYAM',hj:7500,hpp:3565,gm:.525,poin:180,ef:360000,rs:null,ket:'Quick win ~11x transaksi — cocok buat akuisisi member baru'},
+  {t:'bronze',n:'Kenalan Dulu, Gratis Dulu',item:'ROTI KUKUS AYAM',hj:7500,hpp:3565,gm:.525,poin:180,ef:360000,rs:null,ket:'Quick win ~11x transaksi — cocok buat akuisisi member baru'},
+  {t:'bronze',n:'Promo Member Baru — Roti Goreng',item:'ROTI GORENG COKLAT',hj:6500,hpp:2415,gm:.628,poin:120,ef:240000,rs:null,ket:'Quick win ~7x transaksi — cocok buat akuisisi member baru'},
   {t:'silver',n:'Silver Refresher ☕',item:'ICE AMERICANO',hj:22000,hpp:5992,gm:.728,poin:150,ef:250000,rs:.83,ket:'👍 Wajar — 83% dari threshold STAY'},
   {t:'silver',n:'Minuman Favorit Gratis',item:'ICE LEMON TEA',hj:22000,hpp:4473,gm:.797,poin:115,ef:191667,rs:.64,ket:'👍 Wajar — 64% dari threshold STAY'},
   {t:'silver',n:'Silver Chill Treat',item:'ICE TEH TARIK',hj:22000,hpp:3770,gm:.829,poin:95,ef:158333,rs:.53,ket:'✅ Sangat worth it — 53% dari threshold STAY'},
@@ -2498,6 +2494,7 @@ let RW = [
   {t:'platinum',n:'Kopi Pandan Srikaya VIP',item:'KOPI PANDAN SRIKAYA',hj:28000,hpp:9096,gm:.675,poin:455,ef:455000,rs:.25,ket:'✅ Sangat worth it — 25% dari threshold STAY'},
   {t:'platinum',n:'Platinum Beef Teriyaki',item:'NASI BEEF TERIYAKI',hj:38000,hpp:15223,gm:.599,poin:760,ef:760000,rs:.42,ket:'✅ Sangat worth it — 42% dari threshold STAY'},
   {t:'platinum',n:'Mangguo VIP Treat 🥭',item:'MANGGUO',hj:22000,hpp:7337,gm:.667,poin:370,ef:370000,rs:.21,ket:'✅ Sangat worth it — 21% dari threshold STAY'},
+  {t:'platinum',n:'VIP Lychee Indulgence',item:'LYCHEE TEA',hj:23000,hpp:6066,gm:.736,poin:305,ef:305000,rs:.17,ket:'✅ Sangat worth it — 17% dari threshold STAY'},
 ];
 const SB_RW_DEFAULT = RW.slice();
 
@@ -2570,16 +2567,7 @@ function sbSave() {
     theme: document.body.getAttribute('data-theme'),
     qc_b: document.getElementById('qc-b').value,
     qc_t: document.getElementById('qc-t').value,
-    t_bp: document.getElementById('t-bp').value,
-    t_np: document.getElementById('t-np').value,
     t_avg: document.getElementById('t-avg').value,
-    p_hpp: document.getElementById('p-hpp').value,
-    p_bp: document.getElementById('p-bp').value,
-    p_np: document.getElementById('p-np').value,
-    p_abr: document.getElementById('p-abr').value,
-    p_asi: document.getElementById('p-asi').value,
-    p_ago: document.getElementById('p-ago').value,
-    p_apl: document.getElementById('p-apl').value,
     promos: promos,
     customProducts: isCustomP ? P.slice() : null,
     customRewards: isCustomRW ? RW.slice() : null,
@@ -2588,90 +2576,36 @@ function sbSave() {
   try { localStorage.setItem(LS_KEY_SOBUN, JSON.stringify(d)); flashSave(); } catch(e) {}
 }
 function sbLoad() {
-  // ── 1. LOAD EXCEL BASELINE dulu (kalau ada) ──
-  try {
-    const rawBl = localStorage.getItem(LS_KEY_EXCEL_BASELINE);
-    if (rawBl) {
-      const bl = JSON.parse(rawBl);
-      // Restore products dari baseline
-      if (Array.isArray(bl.products) && bl.products.length > 0) {
-        P.length = 0;
-        bl.products.forEach(p => P.push(p));
-      }
-      // Restore rewards dari baseline
-      if (Array.isArray(bl.rewards) && bl.rewards.length > 0) {
-        RW.length = 0;
-        bl.rewards.forEach(r => RW.push(r));
-      }
-      // Restore field values dari baseline
-      if (bl.fields) {
-        const setVal = (id, val) => { const el=document.getElementById(id); if(el&&val!==undefined&&val!==null) el.value=val; };
-        setVal('t-bp', bl.fields.t_bp);
-        setVal('t-np', bl.fields.t_np);
-        setVal('p-hpp', bl.fields.p_hpp);
-        setVal('p-bp', bl.fields.p_bp);
-        setVal('p-np', bl.fields.p_np);
-        setVal('p-abr', bl.fields.p_abr);
-        setVal('p-asi', bl.fields.p_asi);
-        setVal('p-ago', bl.fields.p_ago);
-        setVal('p-apl', bl.fields.p_apl);
-      }
-      // Restore tier thresholds
-      if (bl.tierThresholds) { TIER_TH = bl.tierThresholds; }
-      // Restore promos
-      if (Array.isArray(bl.promos) && bl.promos.length > 0) {
-        promos = bl.promos;
-      }
-      _xlBaselineLoaded = true;
-      console.log('[Excel Baseline] Dimuat dari:', new Date(bl.importedAt).toLocaleString('id-ID'));
-    }
-  } catch(e) { console.warn('[Excel Baseline] Gagal load:', e); }
-
-  // ── 2. LOAD session settings (theme, kalkulator poin, dll — bukan data produk) ──
   try {
     const raw = localStorage.getItem(LS_KEY_SOBUN);
-    if (!raw) {
-      // Tidak ada session save, langsung apply lock jika baseline ada
-      if (_xlBaselineLoaded) applyExcelBaslineLock(true);
-      updateTierDisplay(); qc(); calcT(); calcP();
-      return;
-    }
+    if (!raw) return;
     const d = JSON.parse(raw);
-    const setVal = (id, val) => { const el=document.getElementById(id); if(el&&val!==undefined&&val!==null) el.value=val; };
-    
-    // Hanya restore field yang TIDAK dikunci oleh Excel baseline
-    setVal('qc-b', d.qc_b);
-    setVal('qc-t', d.qc_t);
-    
-    if (!_xlBaselineLoaded) {
-      // Kalau tidak ada baseline Excel, restore semua field dari session save
-      setVal('t-bp',d.t_bp); setVal('t-np',d.t_np); setVal('t-avg',d.t_avg);
-      setVal('p-hpp',d.p_hpp); setVal('p-bp',d.p_bp); setVal('p-np',d.p_np);
-      setVal('p-abr',d.p_abr); setVal('p-asi',d.p_asi); setVal('p-ago',d.p_ago); setVal('p-apl',d.p_apl);
-      if (Array.isArray(d.promos)) { promos = d.promos; }
-      if (Array.isArray(d.customProducts) && d.customProducts.length > 0) {
-        P.length = 0;
-        d.customProducts.forEach(p => P.push(p));
-      }
-      if (Array.isArray(d.customRewards) && d.customRewards.length > 0) {
-        RW.length = 0;
-        d.customRewards.forEach(r => RW.push(r));
-      }
-      if (d.tierThresholds) { TIER_TH = d.tierThresholds; }
-    } else {
-      // Ada Excel baseline — restore t-avg saja (tidak di-lock)
-      setVal('t-avg', d.t_avg);
-      // Promos dari baseline sudah di-load di atas
-    }
-    
+    const setEl = (id, val) => { if (!val && val !== 0) return; const el = document.getElementById(id); if (el) el.value = val; };
+
+    // Theme
     if (d.theme) {
       document.body.setAttribute('data-theme', d.theme);
       document.documentElement.setAttribute('data-theme', d.theme);
     }
+    // Field bebas (tidak dikunci)
+    setEl('qc-b',  d.qc_b);
+    setEl('qc-t',  d.qc_t);
+    setEl('t-avg', d.t_avg);
+    // Promos
+    if (Array.isArray(d.promos)) promos = d.promos;
+    // Custom produk/reward (kalau user pernah edit manual)
+    if (Array.isArray(d.customProducts) && d.customProducts.length > 0) {
+      P.length = 0; d.customProducts.forEach(p => P.push(p));
+    }
+    if (Array.isArray(d.customRewards) && d.customRewards.length > 0) {
+      RW.length = 0; d.customRewards.forEach(r => RW.push(r));
+    }
+    // Tier thresholds (kalau pernah diubah)
+    if (d.tierThresholds) TIER_TH = d.tierThresholds;
+
     updateTierDisplay();
     qc(); calcT(); calcP();
-    if (_xlBaselineLoaded) applyExcelBaslineLock(true);
-  } catch(e) {}
+  } catch(e) { console.warn('[sbLoad]', e); }
 }
 // ─────────────────────────────────────────────────────────
 // EXCEL BASELINE LOCK — mengunci field yang datang dari Excel
@@ -3930,6 +3864,7 @@ function pwSubmit() {
     return;
   }
   window._sobunUnlocked = true;
+  sessionStorage.setItem('taobun_sobun_unlocked', '1');
   pwClose();
   showView('sobun-view');
 }
@@ -4138,16 +4073,20 @@ window.onload = () => {
         // ── RESTORE VIEW AKTIF setelah refresh ──
         try {
             const savedView = localStorage.getItem('taobun_active_view');
-            // Hanya restore kalau bukan home (home sudah default) dan view-nya ada
             if (savedView && savedView !== 'home-view') {
                 const targetEl = document.getElementById(savedView);
                 if (targetEl) {
-                    // Khusus sobun: butuh password gate
                     if (savedView === 'sobun-view') {
-                        if (window._sobunUnlocked) {
-                            showView(savedView);
+                        // Cek apakah sobun sudah pernah di-unlock di session ini
+                        // atau di session sebelumnya (simpan di sessionStorage)
+                        const wasUnlocked = sessionStorage.getItem('taobun_sobun_unlocked') === '1';
+                        if (wasUnlocked) {
+                            window._sobunUnlocked = true;
+                            // Langsung tampilkan sobun tanpa password gate
+                            document.querySelectorAll('.view-container').forEach(v => v.classList.remove('view-active'));
+                            targetEl.classList.add('view-active');
                         }
-                        // Kalau belum unlock, biarkan di home — password gate akan muncul saat user klik
+                        // Kalau belum unlock, biarkan di home
                     } else {
                         showView(savedView);
                     }
@@ -4160,7 +4099,6 @@ window.onload = () => {
             const savedTab = localStorage.getItem('taobun_active_sobun_tab');
             if (savedTab) {
                 const tabEl = document.getElementById('sb-page-' + savedTab);
-                // Cari tombol nav-tab yang sesuai
                 const navBtn = Array.from(document.querySelectorAll('.sobun-wrapper .nav-tab'))
                     .find(btn => btn.getAttribute('onclick') && btn.getAttribute('onclick').includes("'" + savedTab + "'"));
                 if (tabEl && navBtn) {
@@ -4168,8 +4106,7 @@ window.onload = () => {
                     document.querySelectorAll('.sobun-wrapper .nav-tab').forEach(t => t.classList.remove('active'));
                     tabEl.classList.add('active');
                     navBtn.classList.add('active');
-                    // Re-render tab
-                    if (savedTab === 'master')    renderMaster();
+                    if (savedTab === 'master')         renderMaster();
                     else if (savedTab === 'reward')    renderRw();
                     else if (savedTab === 'dashboard') initDash();
                     else if (savedTab === 'tiering')   calcT();
